@@ -31,9 +31,23 @@ function startPage() {
             var lon = response.data.coord.lon;
         });
         
+        var cityID = response.data.id;
+        var forecastQueryURL = "https://api.openweathermap.org/data/2.5/forecast?id=" + cityID + "&appid=" + APIKey;
+        fetch(forecastQueryURL)
+        .then(function(response){
+            var forecastEls = document.querySelectorAll(".forecast");
+            for (i=0; i < forecastEls.length; i++) {
+                forecastEls[i].innerHTML = "";
+                var forecastIndex =i*8 +4;
+                var forecastDate = new date(response.data.list[forecastIndex].dt * 1000);
+                var forecastDay = forecastDate.getDate();
+                var forecastMonth = forecastDate.getMonth() + 1;
+                var forecastYear = forecastDate.getFullYear();
+                var forecastDateEl = document.createElement("p");
+            }
+
+        })
 
         }
 
     }
-
-}
