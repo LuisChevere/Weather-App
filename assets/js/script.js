@@ -6,7 +6,6 @@ function startPage() {
     var currentTempEl = document.getElementById("temperature");
     var currentHumidityEl = document.getElementById("humidity");
     var currentWindEL = document.getElementById("wind");
-    var currentUVEl = document.getElementById("UV");
     var searchHistory = JSON.parse(localStorage.getItem("search")) || [];
 
     var APIKey = "a334fc8eab2946f09e9251d1c9294338"
@@ -23,7 +22,15 @@ function startPage() {
             nameEl.innerHTML = response.data.date + "(" + month + "/" + day + "/" + year + ")";
             var weatherPic = response.data.weather[0].icon;
             currentPicEl.setAttribute("src","https://openweathermap.org/img/wn/" + weatherPic + "@2x.png");
-        })
+            currentPicEl.setAttribute("alt", response.data.weather[0].description);
+            currentTempEl.innerHTML = "Temperature: " + k2f(response.data.main.temp) + "&#176F";
+            currentHumidityEl.innerHTML = "Humidity: " + response.data.main.humidity + "%";
+            currentWindEL.innerHTML = "Wind: " + response.data.wind.speed + " MPH";
+
+            var lat = response.data.coord.lat;
+            var lon = response.data.coord.lon;
+        });
+        
 
         }
 
