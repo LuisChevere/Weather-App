@@ -4,7 +4,7 @@ function startPage() {
     var nameEl = document.getElementById("city-name");
     var currentPicEl = document.getElementById("current-picture");
     var currentTempEl = document.getElementById("temperature");
-    var currentHumidityEl = document.getElementById("humidity");
+    var currentHumidityEl = document.getElementById("humidity");4
     var currentWindEL = document.getElementById("wind");
     var historyEl = document.getElementById("history");
     var searchHistory = JSON.parse(localStorage.getItem("search")) || [];
@@ -12,7 +12,7 @@ function startPage() {
     var APIKey = "a334fc8eab2946f09e9251d1c9294338"
 
     function getWeather(cityName) {
-        var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid" + APIKey;
+        var queryURL = "https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid=" + cityName + APIKey;
         fetch(queryURL)
             .then(function (response) {
 
@@ -30,11 +30,13 @@ function startPage() {
 
                 var lat = response.data.coord.lat;
                 var lon = response.data.coord.lon;
+
+                return response.json();
             });
 
         var cityID = response.data.id;
-        var forecastQueryURL = "api.openweathermap.org/data/2.5/forecast?lat={lat}&lon=" + cityID + "&appid=" + APIKey;
-        fetch(forecastQueryURL)
+        var forecastQueryURL = "http://api.openweathermap.org/data/2.5/forecast?+id=524901&appid+{APIKey}";
+        fetch.get(forecastQueryURL)
             .then(function (response) {
                 var forecastEls = document.querySelectorAll(".forecast");
                 for (i = 0; i < forecastEls.length; i++) {
@@ -76,27 +78,25 @@ function startPage() {
         return Math.floor(1.8 * (K - 273) + 32);
     }
 
-    function renderSearchHistory() {
+      function renderSearchHistory() {
         historyEl.innerHTML = "";
-        for (var i = 0; i < searchHistory.length; i++) {
+        for (let i=0; i<searchHistory.length; i++) {
             var historyItem = document.createElement("input");
-            historyItem.setAttribute("type", "text");
-            historyItem.setAttribute("readonly", true);
+            historyItem.setAttribute("type","text");
+            historyItem.setAttribute("readonly",true);
             historyItem.setAttribute("class", "form-control d-block bg-white");
             historyItem.setAttribute("value", searchHistory[i]);
-            historyItem.addEventListener("click", function () {
+            historyItem.addEventListener("click",function() {
                 getWeather(historyItem.value);
             })
             historyEl.append(historyItem);
         }
     }
 
-
     renderSearchHistory();
     if (searchHistory.length > 0) {
         getWeather(searchHistory[searchHistory.length - 1]);
-
     }
 }
 
-initPage();
+// initPage();
