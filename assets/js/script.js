@@ -31,12 +31,12 @@ function startPage() {
                 var lat = response.data.coord.lat;
                 var lon = response.data.coord.lon;
 
-                return response.json();
+                
             });
 
         var cityID = response.data.id;
         var forecastQueryURL = "http://api.openweathermap.org/data/2.5/forecast?+id=524901&appid+{APIKey}";
-        fetch.get(forecastQueryURL)
+        get(forecastQueryURL)
             .then(function (response) {
                 var forecastEls = document.querySelectorAll(".forecast");
                 for (i = 0; i < forecastEls.length; i++) {
