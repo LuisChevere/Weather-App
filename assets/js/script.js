@@ -11,13 +11,13 @@ function startPage() {
     var APIKey = "a334fc8eab2946f09e9251d1c9294338"
 
     function getWeather(cityName) {
-        var queryURL = "api.openweathermap.org/data/2.5/forecast?lat={lat}&lon=" + cityName + APIKey;
+        var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName  + "&appid"+ APIKey;
         fetch(queryURL)
             .then(function (response) {
 
                 var currentDate = new Date(response.formData.dt * 1000);
                 var day = currentDate.getDate();
-                var month = currentDate.getMonth();
+                var month = currentDate.getMonth() + 1;
                 var year = currentDate.getFullYear();
                 nameEl.innerHTML = response.data.date + "(" + month + "/" + day + "/" + year + ")";
                 var weatherPic = response.data.weather[0].icon;
@@ -71,7 +71,8 @@ function startPage() {
     })
 
     function k2f(K)
-    return Math.floor((K - 273.15) *1.8 +32);
+    return Math.floor(1.8 *( K-273) + 32);
+    console.log(math.floor)
 }
 
 function renderSearchHistory(){
