@@ -31,7 +31,18 @@ function startPage() {
                 var lat = response.data.coord.lat;
                 var lon = response.data.coord.lon;
 
-                var latlonQueryURL = "https://api.openweathermap.org/data/2.5/uvi/forecast?lat=" + lat + "&lon=" + lon + "&appid=" + APIKey;
+                // var latlonQueryURL = "https://api.openweathermap.org/data/2.5/uvi/forecast?lat=" + lat + "&lon=" + lon + "&appid=" + APIKey;
+                // fetch(latlonQueryURL)
+                //     then (function(){
+                //         if (response.ok){
+                //             return response.JSON();
+                //         }
+
+                //     });
+                
+            });
+
+            var latlonQueryURL = "https://api.openweathermap.org/data/2.5/uvi/forecast?lat=" + lat + "&lon=" + lon + "&appid=" + APIKey;
                 fetch(latlonQueryURL)
                     then (function(){
                         if (response.ok){
@@ -39,8 +50,6 @@ function startPage() {
                         }
 
                     });
-                
-            });
             
         var cityID = response.data.id;
         var forecastQueryURL = "http://api.openweathermap.org/data/2.5/forecast?id=" + cityID + "&appid=" + APIKey;
