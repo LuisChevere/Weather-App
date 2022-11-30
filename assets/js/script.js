@@ -12,7 +12,7 @@ function startPage() {
     var APIKey = "a334fc8eab2946f09e9251d1c9294338" 
 
     function getWeather(cityName) {
-        var queryURL = "http://api.openweathermap.org/geo/1.0/direct?q="+ "&appid=" + cityName + APIKey;
+        var queryURL = "https://api.openweathermap.org/geo/1.0/direct?q="+ "&appid=" + cityName + APIKey;
         fetch(queryURL)
             .then(function (response) {
                     console.log(response)
@@ -22,7 +22,7 @@ function startPage() {
                 var year = currentDate.getFullYear();
                 nameEl.innerHTML = response.data.name + "(" + month + "/" + day + "/" + year + ")";
                 var weatherPic = response.data.weather[0].icon;
-                currentPicEl.setAttribute("src", "http://openweathermap.org/img/wn/10d@2x.png" + weatherPic + "@2x.png");
+                currentPicEl.setAttribute("src", "https://openweathermap.org/img/wn/10d@2x.png" + weatherPic + "@2x.png");
                 currentPicEl.setAttribute("alt", response.data.weather[0].description);
                 currentTempEl.innerHTML = "Temperature: " + k2f(response.data.main.temp) + "&#176F";
                 currentHumidityEl.innerHTML = "Humidity: " + response.data.main.humidity + "%";
@@ -52,7 +52,7 @@ function startPage() {
                     });
             
         var cityID = response.data.id;
-        var forecastQueryURL = "http://api.openweathermap.org/data/2.5/forecast?id=" + cityID + "&appid=" + APIKey;
+        var forecastQueryURL = "https://api.openweathermap.org/data/2.5/forecast?id=" + cityID + "&appid=" + APIKey;
         fetch(forecastQueryURL)
             .then(function (response) {
                 var forecastEls = document.querySelectorAll(".forecast");
